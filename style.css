@@ -77,6 +77,9 @@ td.expand-pre{
 	tr.pkgmark-noqemu{
 		background-color:lightgreen;
 	}
+	tr.pkgmark-failing{
+		background-color:orange;
+	}
 	tr.pkgmark-outdated,
 	tr.pkgmark-outdated_dep,
 	tr.pkgmark-missing_dep,
@@ -118,6 +121,9 @@ td.expand-pre{
 	tr.pkgmark-pending,
 	tr.pkgmark-noqemu{
 		background-color:olivedrab;
+	}
+	tr.pkgmark-failing{
+		background-color:orangered;
 	}
 	tr.pkgmark-outdated,
 	tr.pkgmark-outdated_dep,
