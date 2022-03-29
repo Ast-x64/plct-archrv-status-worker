@@ -11,9 +11,6 @@ function wrapExternalLink(base,href){
 function genTabName(pkg){
 	let ret=pkg.name;
 	const nameHrefList=[
-		[(pkg)=>{return pkg.felix=='legacy';},(pkg)=>{
-			return'https://archriscv.felixc.at/.status/logs/'+pkg.name+'.log';
-		}],
 		[(pkg)=>{return pkg.felix=='dir';},(pkg)=>{
 			return'https://archriscv.felixc.at/.status/logs/'+pkg.name+'/';
 		}],
@@ -29,7 +26,6 @@ function genTabName(pkg){
 	if(pkg.work.typ=='prrm')
 		ret='<del>'+ret+'</del>';
 	const pkgtagList=[
-		[(pkg)=>{return pkg.felix=='legacy'},'legacy'],
 		[(pkg)=>{return pkg.felix=='leaf'},'leaf'],
 		[(pkg)=>{return pkg.rotten==true},'rotten']
 	];
@@ -96,7 +92,7 @@ function genTabMark(pkg){
 }
 function generateHTML(pkgs,search,subreqTime){
 	let html='';
-	const header='<!doctype html><html><head><title>ArchRV PKG Status</title><style>body{margin:0;position:absolute;left:50%;transform:translateX(-50%);line-height:1.5;font-family:Consolas,Ubuntu Mono,Menlo,Monospace;}a{text-decoration:none;}th,td{text-align:left;vertical-align:top;padding:0.3rem;border-top:1px solid;}table{border-collapse:collapse;width:100%;margin-bottom:1rem;}span.pkgtag{font-size:0.8em;}span.pkgtag-legacy{color:#333;background-color:#bbb;}span.pkgtag-leaf{color:#fff;background-color:#555;}span.pkgtag-rotten{color:lightyellow;background-color:darkred;}span.subreqtime{font-size:0.8em;}tr.expand{font-size:0.8em;}td.expand{border-top-style:dashed;}td.expand-pre{border-top-style:dotted;padding-left:2%;}@media(prefers-color-scheme:light){body,.table{color:#333;background-color:white;}a{color:dodgerblue;}a:hover{color:blueviolet;}th,td{border-top-color:#ddd;}tr.pkgwork-add{background-color:lightpink;}tr.pkgwork-pr,tr.pkgwork-prrm,tr.pkgmark-upstreamed{background-color:lightblue;}tr.pkgwork-merged,tr.pkgmark-ready,tr.pkgmark-pending,tr.pkgmark-noqemu{background-color:lightgreen;}tr.pkgmark-failing{background-color:orange;}tr.pkgmark-outdated,tr.pkgmark-outdated_dep,tr.pkgmark-missing_dep,tr.pkgmark-ignore,tr.pkgmark-stuck{background-color:lightgray;}tr.pkgmark-unknown{background-color:yellow;}span.pkgmark-noqemu{background-color:gold;}}@media(prefers-color-scheme:dark){body,.table{color:white;background-color:#333;}a{color:cyan;}a:hover{color:gold;}th,td{border-top-color:white;}tr.pkgwork-add{background-color:mediumvioletred;}tr.pkgwork-pr,tr.pkgwork-prrm,tr.pkgmark-upstreamed{background-color:blueviolet;}tr.pkgwork-merged,tr.pkgmark-ready,tr.pkgmark-pending,tr.pkgmark-noqemu{background-color:olivedrab;}tr.pkgmark-failing{background-color:orangered;}tr.pkgmark-outdated,tr.pkgmark-outdated_dep,tr.pkgmark-missing_dep,tr.pkgmark-ignore,tr.pkgmark-stuck{background-color:gray;}tr.pkgmark-unknown{background-color:chocolate;}span.pkgmark-noqemu{background-color:red;}}</style><script>function rewidth(){document.getElementsByTagName("body")[0].style.width=Math.min(100,1.1*window.innerHeight/window.innerWidth*100)+"%";};window.addEventListener("load",rewidth);window.addEventListener("resize",rewidth);</script></head><body><div>';
+	const header='<!doctype html><html><head><title>ArchRV PKG Status</title><style>body{margin:0;position:absolute;left:50%;transform:translateX(-50%);line-height:1.5;font-family:Consolas,Ubuntu Mono,Menlo,Monospace;}a{text-decoration:none;}th,td{text-align:left;vertical-align:top;padding:0.3rem;border-top:1px solid;}table{border-collapse:collapse;width:100%;margin-bottom:1rem;}span.pkgtag{font-size:0.8em;}span.pkgtag-leaf{color:#fff;background-color:#555;}span.pkgtag-rotten{color:lightyellow;background-color:darkred;}span.subreqtime{font-size:0.8em;}tr.expand{font-size:0.8em;}td.expand{border-top-style:dashed;}td.expand-pre{border-top-style:dotted;padding-left:2%;}@media(prefers-color-scheme:light){body,.table{color:#333;background-color:white;}a{color:dodgerblue;}a:hover{color:blueviolet;}th,td{border-top-color:#ddd;}tr.pkgwork-add{background-color:lightpink;}tr.pkgwork-pr,tr.pkgwork-prrm,tr.pkgmark-upstreamed{background-color:lightblue;}tr.pkgwork-merged,tr.pkgmark-ready,tr.pkgmark-pending,tr.pkgmark-noqemu{background-color:lightgreen;}tr.pkgmark-failing{background-color:orange;}tr.pkgmark-outdated,tr.pkgmark-outdated_dep,tr.pkgmark-missing_dep,tr.pkgmark-ignore,tr.pkgmark-stuck{background-color:lightgray;}tr.pkgmark-unknown{background-color:yellow;}span.pkgmark-noqemu{background-color:gold;}}@media(prefers-color-scheme:dark){body,.table{color:white;background-color:#333;}a{color:cyan;}a:hover{color:gold;}th,td{border-top-color:white;}tr.pkgwork-add{background-color:mediumvioletred;}tr.pkgwork-pr,tr.pkgwork-prrm,tr.pkgmark-upstreamed{background-color:blueviolet;}tr.pkgwork-merged,tr.pkgmark-ready,tr.pkgmark-pending,tr.pkgmark-noqemu{background-color:olivedrab;}tr.pkgmark-failing{background-color:orange;}tr.pkgmark-outdated,tr.pkgmark-outdated_dep,tr.pkgmark-missing_dep,tr.pkgmark-ignore,tr.pkgmark-stuck{background-color:gray;}tr.pkgmark-unknown{background-color:chocolate;}span.pkgmark-noqemu{background-color:red;}}</style><script>function rewidth(){document.getElementsByTagName("body")[0].style.width=Math.min(100,1.1*window.innerHeight/window.innerWidth*100)+"%";};window.addEventListener("load",rewidth);window.addEventListener("resize",rewidth);</script></head><body><div>';
 	const mid='</div><div><table><thead><tr><th scope="col">name</th><th scope="col">user</th><th scope="col">work</th><th scope="col">mark</th></tr></thead><tbody>';
 	const footer='</tbody></table></body></html>';
 	html+=header;
@@ -224,20 +220,12 @@ const subreqList={
 		},
 		parser:async function(pkgs,rsp){
 			rsp=await rsp.text();
-			for(const match of rsp.matchAll(/\<a href=\'logs\/.*?\<\/a\>/g)){
+			for(const match of rsp.matchAll(/\<a href=\'logs\/.*?\//g)){
 				if(match[0].search('Outdated FTBFS Logs')!=-1)
 					continue;
-				let pkgname=match[0].substr(14);
-				pkgname=pkgname.substr(0,pkgname.search('\''));
-				if(pkgname[pkgname.length-1]=='/'){
-					pkgname=pkgname.substr(0,pkgname.length-1);
-					pkgs[pkgname]=pkgs[pkgname]||new emptyPkg(pkgname);
-					pkgs[pkgname].felix='dir';
-				}else{
-					pkgname=pkgname.substr(0,pkgname.length-4);
-					pkgs[pkgname]=pkgs[pkgname]||new emptyPkg(pkgname);
-					pkgs[pkgname].felix='legacy';
-				}
+				let pkgname=match[0].substr(14,match[0].length-15);
+				pkgs[pkgname]=pkgs[pkgname]||new emptyPkg(pkgname);
+				pkgs[pkgname].felix='dir';
 			}
 			for(const match of rsp.matchAll(/[^\>]*\>[^\>]*\>Leaf package/g)){
 				let pkgname=match[0].match(/^[^\<]*/g);

@@ -23,10 +23,6 @@ table{
 span.pkgtag{
 	font-size:0.8em;
 }
-span.pkgtag-legacy{
-	color:#333;
-	background-color:#bbb;
-}
 span.pkgtag-leaf{
 	color:#fff;
 	background-color:#555;
