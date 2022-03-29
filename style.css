@@ -74,7 +74,6 @@ td.expand-pre{
 		background-color:lightgreen;
 	}
 	tr.pkgmark-failing{
-		background-color:orange;
 	}
 	tr.pkgmark-outdated,
 	tr.pkgmark-outdated_dep,
