@@ -287,8 +287,10 @@ const subreqList={
 				if(pkgname==null)
 					return;
 				let rm=(pkgname[0][0]=='r');
-				pkgname=pkgname[0].substr(pkgname[0].search('pkg: ')+5);
-				pkgname=pkgname[0].substr(pkgname[0].search('patch: ')+7);
+				if(pkgname[0].search('pkg: ')!=-1)
+					pkgname=pkgname[0].substr(pkgname[0].search('pkg: ')+5);
+				if(pkgname[0].search('patch: ')!=-1)
+					pkgname=pkgname[0].substr(pkgname[0].search('patch: ')+7);
 				pkgs[pkgname]=pkgs[pkgname]||new emptyPkg(pkgname);
 				pkgs[pkgname].work.typ=(rm?'prrm':'pr');
 				pkgs[pkgname].work.prurl=pull.html_url;
