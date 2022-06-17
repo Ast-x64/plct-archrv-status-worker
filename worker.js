@@ -32,6 +32,7 @@ function genTabName(pkg){
 	for(const pkgtag of pkgtagList)
 		if(pkgtag[0](pkg))
 			ret+=' <span class="pkgtag pkgtag-'+pkgtag[1]+'">['+pkgtag[1]+']</span>';
+	ret=wrapExternalLink('[A]','https://archlinux.org/packages/?q='+pkg.name)+' | '+ret;
 	return ret;
 }
 function genTabUser(pkg){
