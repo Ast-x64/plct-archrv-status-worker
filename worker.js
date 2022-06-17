@@ -220,10 +220,11 @@ const subreqList={
 		},
 		parser:async function(pkgs,rsp){
 			rsp=await rsp.text();
-			for(const match of rsp.matchAll(/\<a href=\'logs\/.*?\//g)){
+			for(const match of rsp.matchAll(/\<a href=\'logs\/.*?\<\/a\>/g)){
 				if(match[0].search('Outdated FTBFS Logs')!=-1)
 					continue;
-				let pkgname=match[0].substr(14,match[0].length-15);
+				let pkgname=match[0].substr(14);
+				pkgname=pkgname.substr(0,pkgname.search('\/'));
 				pkgs[pkgname]=pkgs[pkgname]||new emptyPkg(pkgname);
 				pkgs[pkgname].felix='dir';
 			}
