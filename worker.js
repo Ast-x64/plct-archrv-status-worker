@@ -282,11 +282,12 @@ const subreqList={
 		parser:async function(pkgs,rsp){
 			rsp=await rsp.json();
 			rsp.forEach(pull=>{
-				let pkgname=pull.title.match(/(addpkg|updpkg|upgpkg|rmpkg|rmvpkg): [^ ]+/g);
+				let pkgname=pull.title.match(/(add|upd|upg|rm|rmv)(pkg|patch): [^ ]+/g);
 				if(pkgname==null)
 					return;
 				let rm=(pkgname[0][0]=='r');
 				pkgname=pkgname[0].substr(pkgname[0].search('pkg: ')+5);
+				pkgname=pkgname[0].substr(pkgname[0].search('patch: ')+7);
 				pkgs[pkgname]=pkgs[pkgname]||new emptyPkg(pkgname);
 				pkgs[pkgname].work.typ=(rm?'prrm':'pr');
 				pkgs[pkgname].work.prurl=pull.html_url;
