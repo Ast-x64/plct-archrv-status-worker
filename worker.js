@@ -75,6 +75,8 @@ function genTabMark(pkg){
 		'ignore':'ignore',
 		'missing_dep':'dep missing',
 		'failing':'failing',
+		'flaky':'flaky',
+		'nocheck':'no check',
 		'':''
 	};
 	return pkg.mark.map((mark)=>{
