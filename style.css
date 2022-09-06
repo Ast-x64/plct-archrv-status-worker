@@ -31,6 +31,18 @@ span.pkgtag-rotten{
 	color:lightyellow;
 	background-color:darkred;
 }
+span.pkgtag-rotten:hover{
+	color:darkred;
+	background-color:lightyellow;
+}
+span.pkgtag-patched{
+	color:lightgreen;
+	background-color:slateblue;
+}
+span.pkgtag-patched:hover{
+	color:slateblue;
+	background-color:lightgreen;
+}
 span.subreqtime{
 	font-size:0.8em;
 }
@@ -48,16 +60,16 @@ td.expand-pre{
 	body,
 	.table{
 		color:#333;
-		background-color:white;
+		background-color:#eee;
 	}
 	a{
-		color:dodgerblue;
+		color:royalblue;
 	}
 	a:hover{
 		color:blueviolet;
 	}
 	th,td{
-		border-top-color:#ddd;
+		border-top-color:#888;
 	}
 	tr.pkgwork-add{
 		background-color:lightpink;
@@ -67,7 +79,6 @@ td.expand-pre{
 	tr.pkgmark-upstreamed{
 		background-color:lightblue;
 	}
-	tr.pkgwork-merged,
 	tr.pkgmark-ready,
 	tr.pkgmark-pending,
 	tr.pkgmark-noqemu{
@@ -83,7 +94,13 @@ td.expand-pre{
 		background-color:lightgray;
 	}
 	tr.pkgmark-unknown{
-		background-color:yellow;
+		background-color:khaki;
+	}
+	tr.pkgmark-nocheck{
+		background-color:lightgoldenrodyellow;
+	}
+	tr.pkgmark-flaky{
+		background-color:lightsteelblue;
 	}
 	span.pkgmark-noqemu{
 		background-color:gold;
@@ -92,7 +109,8 @@ td.expand-pre{
 @media(prefers-color-scheme:dark){
 	body,
 	.table{
-		color:white;background-color:#333;
+		color:white;
+		background-color:#333;
 	}
 	a{
 		color:cyan;
@@ -111,14 +129,12 @@ td.expand-pre{
 	tr.pkgmark-upstreamed{
 		background-color:blueviolet;
 	}
-	tr.pkgwork-merged,
 	tr.pkgmark-ready,
 	tr.pkgmark-pending,
 	tr.pkgmark-noqemu{
 		background-color:olivedrab;
 	}
 	tr.pkgmark-failing{
-		background-color:orangered;
 	}
 	tr.pkgmark-outdated,
 	tr.pkgmark-outdated_dep,
@@ -129,6 +145,12 @@ td.expand-pre{
 	}
 	tr.pkgmark-unknown{
 		background-color:chocolate;
+	}
+	tr.pkgmark-nocheck{
+		background-color:darkgoldenrod;
+	}
+	tr.pkgmark-flaky{
+		background-color:darkcyan;
 	}
 	span.pkgmark-noqemu{
 		background-color:red;
