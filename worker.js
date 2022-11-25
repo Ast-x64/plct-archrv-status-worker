@@ -116,35 +116,33 @@ function generateHTML(pkgs,search,subreqTime){
 		return true;
 	});
 	if(search.sort!=null){
-		function emptyCmp(a,b){
+		function emptyCmp(a,b,sortKey){
+			if(sortKey==undefined)
+				return 0;
+			a=sortKey(a);
+			b=sortKey(b);
 			if(a==b)
 				return 0;
-			if(a=='')
+			if(a==''||isNaN(a))
 				return 1;
-			if(b=='')
+			if(b==''||isNaN(b))
 				return-1;
 			return(a<b?-1:1);
 		}
-		const sortFuncList={
-			'name':(a,b)=>{return emptyCmp(a.name,b.name);},
-			'user':(a,b)=>{return emptyCmp(a.user,b.user);},
-			'work':(a,b)=>{return emptyCmp(a.work.typ,b.work.typ);},
-			'mark':(a,b)=>{return emptyCmp(
-				a.mark.map(mark=>mark.typ).join(),
-				b.mark.map(mark=>mark.typ).join()
-			);},
-			'mkby':(a,b)=>{return emptyCmp(
-				a.mark.map(mark=>mark.msg.by).join(),
-				b.mark.map(mark=>mark.msg.by).join()
-			);}
+		const sortKeyList={
+			'name':x=>x.name,
+			'user':x=>x.user,
+			'work':x=>x.work.typ,
+			'mark':x=>x.mark.map(mark=>mark.typ).join(),
+			'mkby':x=>x.mark.map(mark=>mark.msg.by).join(),
+			'lastfail':x=>-Date.parse(x.mark.filter(mark=>mark.typ=='failing').map(mark=>mark.msg.comment).join())
 		};
 		pkgs.sort((a,b)=>{
-			for(const property of search.sort)
-				if(sortFuncList[property]!=undefined){
-					let c=sortFuncList[property](a,b);
-					if(c!=0)
-						return c;
-				}
+			for(const property of search.sort){
+				let c=emptyCmp(a,b,sortKeyList[property]);
+				if(c!=0)
+					return c;
+			}
 			return 0;
 		});
 	}
@@ -187,7 +185,7 @@ const routeList=[
 	});}],
 	['/favicon.ico',()=>{return new Response('',{
 		status:302,
-		headers:{'Location': 'https://riscv-notes.sh1mar.in/img/favicon.ico'}
+		headers:{'Location':'https://riscv-notes.sh1mar.in/img/favicon.ico'}
 	});}]
 ];
 const FetchUA='PLCT::ArchRV.StatusWorker';
