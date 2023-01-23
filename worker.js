@@ -314,7 +314,7 @@ const subreqList={
 		}
 	},
 	'RottenCache':{
-		url:'https://static.func.bond/'+ROTTEN_CACHE_TOKEN+'/rotten.log',
+		url:'https://'+ROTTEN_CACHE_TOKEN+'/rotten.log',
 		init:{
 			method:'GET',
 			headers:{'User-Agent':FetchUA}
