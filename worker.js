@@ -26,7 +26,7 @@ function genTabName(pkg){
 				tag=wrapExternalLink(tag,pkgtag[2](pkg));
 			ret+=' '+tag;
 		}
-	ret=wrapExternalLink('[A]','https://archlinux.org/packages/?q='+pkg.name)+' | '+ret;
+	ret=wrapExternalLink('[A]','https://archlinux.org/packages/?q='+encodeURIComponent(pkg.name))+' | '+ret;
 	return ret;
 }
 function genTabUser(pkg){
